@@ -26,6 +26,7 @@ class RaportiNotifier extends StateNotifier<List<Raporti>> {
           komenti: data['komenti'],
           isKmKthimitEditable: false,
           komenti2: data['komenti2'],
+          isKomenti2Editable: false,
         );
       }).toList();
       state = raportet;
@@ -44,6 +45,7 @@ class RaportiNotifier extends StateNotifier<List<Raporti>> {
         'kmMarrjes': raporti.kmMarrjes,
         'kmKthimit': raporti.kmKthimit,
         'komenti': raporti.komenti,
+        'komenti2': raporti.komenti2,
       });
 
       final newRaport = Raporti(
@@ -55,6 +57,7 @@ class RaportiNotifier extends StateNotifier<List<Raporti>> {
         komenti: raporti.komenti,
         isKmKthimitEditable: true,
         komenti2: raporti.komenti2,
+        isKomenti2Editable: true,
       );
 
       state = [...state, newRaport];
@@ -87,6 +90,34 @@ class RaportiNotifier extends StateNotifier<List<Raporti>> {
       }).toList();
     } catch (e) {
       print('Error updating kmKthimit: $e');
+    }
+  }
+
+  Future<void> updateKomenti2(String id, String newKomenti2) async {
+    try {
+      await _firestore.collection('raporte').doc(id).update({
+        'komenti2': newKomenti2,
+      });
+
+      state = state.map((raporti) {
+        if (raporti.id == id) {
+          return Raporti(
+            id: raporti.id,
+            data: raporti.data,
+            emri: raporti.emri,
+            kmMarrjes: raporti.kmMarrjes,
+            kmKthimit: raporti.kmKthimit,
+            komenti: raporti.komenti,
+            komenti2: newKomenti2,
+            isKmKthimitEditable: false,
+            isKomenti2Editable:
+                false, // After editing, mark komenti2 as not editable
+          );
+        }
+        return raporti;
+      }).toList();
+    } catch (e) {
+      print('Error updating komenti2: $e');
     }
   }
 }

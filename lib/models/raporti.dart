@@ -11,6 +11,7 @@ class Raporti {
   final String komenti;
   bool isKmKthimitEditable;
   String komenti2;
+  bool isKomenti2Editable;
 
   Raporti({
     required this.data,
@@ -19,6 +20,7 @@ class Raporti {
     required this.kmKthimit,
     required this.komenti,
     this.isKmKthimitEditable = true,
+    this.isKomenti2Editable = true,
     required this.komenti2,
     String? id,
   }) : id = id ?? uuid.v4();

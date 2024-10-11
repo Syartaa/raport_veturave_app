@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:raporti_veturave_app/providers/raport_provider.dart';
+import 'package:raporti_veturave_app/widget/edit_dialog.dart';
 
 class RaportTable extends ConsumerWidget {
   RaportTable({super.key});
@@ -17,10 +18,8 @@ class RaportTable extends ConsumerWidget {
           "Raportet",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor:
-            const Color.fromARGB(255, 132, 161, 190), // Match HomeScreen color
-        iconTheme:
-            const IconThemeData(color: Colors.white), // Icon color change
+        backgroundColor: const Color.fromARGB(255, 132, 161, 190),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       backgroundColor: Colors.white,
       body: raportiNotifier.isLoading
@@ -39,10 +38,10 @@ class RaportTable extends ConsumerWidget {
                       16.0), // Add padding around the table
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
-                    headingRowColor: MaterialStateColor.resolveWith((states) =>
+                    headingRowColor: WidgetStateColor.resolveWith((states) =>
                         const Color.fromARGB(
                             255, 165, 182, 165)), // Header row color
-                    dataRowColor: MaterialStateColor.resolveWith((states) =>
+                    dataRowColor: WidgetStateColor.resolveWith((states) =>
                         const Color.fromARGB(
                             255, 245, 245, 245)), // Data row color
                     headingTextStyle: const TextStyle(
@@ -80,21 +79,60 @@ class RaportTable extends ConsumerWidget {
                                         ),
                                         onPressed: () async {
                                           final newKmKthimit =
-                                              await _showEditKmKthimitDialog(
-                                                  context, raporti.kmKthimit);
-                                          if (newKmKthimit != null) {
-                                            ref
-                                                .read(raportiProvider.notifier)
-                                                .updateKmKthimit(
-                                                    raporti.id, newKmKthimit);
-                                          }
+                                              await showDialog<String>(
+                                            context: context,
+                                            builder: (context) => EditDialog(
+                                              title: 'Edit KM e Kthimit',
+                                              initialValue: raporti.kmKthimit,
+                                              labelText: 'KM e Kthimit',
+                                              inputType: TextInputType.number,
+                                              onSave: (newValue) {
+                                                ref
+                                                    .read(raportiProvider
+                                                        .notifier)
+                                                    .updateKmKthimit(
+                                                        raporti.id, newValue);
+                                              },
+                                            ),
+                                          );
                                         },
                                       ),
                                   ],
                                 ),
                               ),
                               DataCell(Text(raporti.komenti)),
-                              DataCell(Text(raporti.komenti2)),
+                              DataCell(Row(
+                                children: [
+                                  Expanded(child: Text(raporti.komenti2)),
+                                  if (raporti.isKomenti2Editable)
+                                    IconButton(
+                                      onPressed: () async {
+                                        final newKomenti2 =
+                                            await showDialog<String>(
+                                          context: context,
+                                          builder: (context) => EditDialog(
+                                            title: 'Edit Komenti i dyte',
+                                            initialValue: raporti.komenti2,
+                                            labelText: 'Komenti i dyte',
+                                            inputType: TextInputType.text,
+                                            onSave: (newValue) {
+                                              ref
+                                                  .read(
+                                                      raportiProvider.notifier)
+                                                  .updateKomenti2(
+                                                      raporti.id, newValue);
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        color:
+                                            Color.fromARGB(255, 132, 161, 190),
+                                      ),
+                                    )
+                                ],
+                              )),
                             ],
                           );
                         })
@@ -103,39 +141,6 @@ class RaportTable extends ConsumerWidget {
                         .toList(), // Reverse the list to show the latest reports at the end
                   ),
                 ),
-    );
-  }
-
-  Future<String?> _showEditKmKthimitDialog(
-      BuildContext context, String currentKmKthimit) {
-    final kmKthimitController = TextEditingController(text: currentKmKthimit);
-
-    return showDialog<String>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Edit KM e Kthimit'),
-          content: TextField(
-            controller: kmKthimitController,
-            decoration: const InputDecoration(labelText: 'KM e Kthimit'),
-            keyboardType: TextInputType.number,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(kmKthimitController.text);
-              },
-              child: const Text('Save'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

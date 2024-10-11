@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1018943614715",
+    "firebase_url": "https://raporti-app-default-rtdb.firebaseio.com",
+    "project_id": "raporti-app",
+    "storage_bucket": "raporti-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018943614715:android:69d3c467cd794f09568a5e",
+        "android_client_info": {
+          "package_name": "com.example.raporti_veturave_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3WarVweNkN3BxsR23IsbfTtDm1vU2bS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

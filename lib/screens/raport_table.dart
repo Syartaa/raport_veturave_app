@@ -12,6 +12,9 @@ class RaportTable extends ConsumerWidget {
     final raportet = ref.watch(raportiProvider);
     final raportiNotifier = ref.read(raportiProvider.notifier);
 
+    // Watch the isLoading flag
+    final isLoading = raportiNotifier.isLoading;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -20,9 +23,12 @@ class RaportTable extends ConsumerWidget {
         ),
         backgroundColor: const Color.fromARGB(255, 132, 161, 190),
         iconTheme: const IconThemeData(color: Colors.white),
+        shadowColor: const Color.fromARGB(255, 88, 71, 20),
       ),
       backgroundColor: Colors.white,
-      body: raportiNotifier.isLoading
+
+      // Conditional rendering based on loading and data availability
+      body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -34,16 +40,15 @@ class RaportTable extends ConsumerWidget {
                   ),
                 )
               : SingleChildScrollView(
-                  padding: const EdgeInsets.all(
-                      16.0), // Add padding around the table
+                  padding: const EdgeInsets.all(16.0),
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
-                    headingRowColor: WidgetStateColor.resolveWith((states) =>
-                        const Color.fromARGB(
-                            255, 165, 182, 165)), // Header row color
-                    dataRowColor: WidgetStateColor.resolveWith((states) =>
-                        const Color.fromARGB(
-                            255, 245, 245, 245)), // Data row color
+                    headingRowColor: MaterialStateColor.resolveWith(
+                      (states) => const Color.fromARGB(255, 165, 182, 165),
+                    ), // Header row color
+                    dataRowColor: MaterialStateColor.resolveWith(
+                      (states) => const Color.fromARGB(255, 245, 245, 245),
+                    ), // Data row color
                     headingTextStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

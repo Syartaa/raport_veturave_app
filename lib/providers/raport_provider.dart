@@ -12,24 +12,49 @@ class RaportiNotifier extends StateNotifier<List<Raporti>> {
 
   Future<void> getAllRaports() async {
     try {
+      print('Fetching data from Firestore...');
       isLoading = true;
-      state = [];
+      state = []; // Clear the state before fetching
+
+      // Using `get()` for one-time data fetch
       final snapshot = await _firestore.collection('raporte').get();
-      final raportet = snapshot.docs.map((doc) {
-        final data = doc.data();
-        return Raporti(
-          id: doc.id,
-          data: DateTime.parse(data['data']),
-          emri: data['emri'],
-          kmMarrjes: data['kmMarrjes'],
-          kmKthimit: data['kmKthimit'],
-          komenti: data['komenti'],
-          isKmKthimitEditable: false,
-          komenti2: data['komenti2'],
-          isKomenti2Editable: false,
-        );
-      }).toList();
-      state = raportet;
+
+      print('Received ${snapshot.docs.length} documents');
+
+      if (snapshot.docs.isNotEmpty) {
+        final raportet = snapshot.docs.map((doc) {
+          final data = doc.data();
+
+          // Debugging print statement
+          print('Parsing document ${doc.id}: $data');
+
+          // Handle the 'data' field based on its type
+          DateTime parsedDate;
+          if (data['data'] is Timestamp) {
+            parsedDate = (data['data'] as Timestamp).toDate();
+          } else if (data['data'] is String) {
+            parsedDate = DateTime.parse(data['data']);
+          } else {
+            throw 'Invalid date format'; // In case of unexpected format
+          }
+
+          return Raporti(
+            id: doc.id,
+            data: parsedDate, // Use the parsed date
+            emri: data['emri'] ?? 'Unknown',
+            kmMarrjes: data['kmMarrjes'] ?? '0',
+            kmKthimit: data['kmKthimit'] ?? '0',
+            komenti: data['komenti'] ?? '',
+            isKmKthimitEditable: false,
+            komenti2: data['komenti2'] ?? '',
+            isKomenti2Editable: false,
+          );
+        }).toList();
+
+        state = raportet;
+      } else {
+        print('No documents found');
+      }
     } catch (e) {
       print('Error fetching reports: $e');
     } finally {

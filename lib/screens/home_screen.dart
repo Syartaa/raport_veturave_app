@@ -39,7 +39,7 @@ class HomeScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Profile Picture
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 75, // Image size
                   backgroundImage: AssetImage(
                       'assets/1.png'), // Replace with your image link
@@ -49,10 +49,10 @@ class HomeScreen extends ConsumerWidget {
                 // Username
                 Text(
                   user.name, // Display the dynamic username
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 24,
-                    color: const Color.fromARGB(255, 70, 68, 68),
+                    color: Color.fromARGB(255, 70, 68, 68),
                   ),
                 ),
                 SizedBox(height: 40),
@@ -75,7 +75,7 @@ class HomeScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Raportet',
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
@@ -101,11 +101,11 @@ class HomeScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Mer Veturen',
                       style: TextStyle(
                         fontSize: 18,
-                        color: const Color.fromARGB(255, 236, 235, 235),
+                        color: Color.fromARGB(255, 236, 235, 235),
                       ),
                     ),
                   ),

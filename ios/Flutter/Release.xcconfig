@@ -1,5 +1,2 @@
-# Include CocoaPods configuration
-# This ensures proper linking of Firebase, gRPC, etc.
-# Adjust the path if your project structure is different
-# This assumes the Pods-Runner.xcconfig file is in the default location
-include "Pods/Target Support Files/Pods-Runner/Pods-Runner.xcconfig"
+#include "Pods/Target Support Files/Pods-Runner/Pods-Runner.xcconfig"
+

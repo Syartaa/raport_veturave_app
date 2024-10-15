@@ -9,8 +9,7 @@ target 'Runner' do
   pod 'Firebase/Core', '~> 10.0.0'   # Replace with latest stable version
   pod 'Firebase/Firestore', '~> 10.0.0'
 
-  # Pin gRPC-Core to a stable version (consider using a newer stable version)
-  pod 'gRPC-Core'
+ 
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

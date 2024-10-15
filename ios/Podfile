@@ -6,16 +6,13 @@ target 'Runner' do
   # Firebase dependencies
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
-
-  # Exclude arm64 for simulators
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
+        # Exclude arm64 for both simulators and devices
+        config.build_settings['EXCLUDED_ARCHS'] = 'arm64'
         config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
-        # Set base configurations
-        config.build_settings['CONFIGURATION'] = 'Pods-Runner.' + config.name
       end
     end
   end
-end
-
+  

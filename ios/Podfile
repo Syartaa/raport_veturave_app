@@ -6,8 +6,8 @@ target 'Runner' do
   use_modular_headers!
 
   # Firebase dependencies with pinned versions
-  pod 'Firebase/Core', '~> 10.0.0'   # Replace with latest stable version
-  pod 'Firebase/Firestore', '~> 10.0.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
 
  
 

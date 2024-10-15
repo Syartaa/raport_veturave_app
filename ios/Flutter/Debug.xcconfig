@@ -1,4 +1,1 @@
-# Include the CocoaPods configuration
-# This file is generated when you run 'pod install'
-# Adjust the path if necessary based on your Podfile setup
-include "Pods/Target Support Files/Pods-Runner/Pods-Runner.xcconfig"
+#include "Generated.xcconfig"

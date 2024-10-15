@@ -12,7 +12,12 @@ target 'Runner' do
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
         config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+        # Set base configurations
+        config.build_settings['CONFIGURATION'] = 'Pods-Runner.' + config.name
       end
     end
   end
 end
+
+# Suppress warnings about the CocoaPods master specs repo
+warn_for_unused_master_specs_repo => false

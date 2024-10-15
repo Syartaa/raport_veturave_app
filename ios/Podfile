@@ -19,5 +19,3 @@ target 'Runner' do
   end
 end
 
-# Suppress warnings about the CocoaPods master specs repo
-warn_for_unused_master_specs_repo => false

@@ -6,7 +6,6 @@ target 'Runner' do
   # Firebase dependencies
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
-  pod 'cloud_firestore'
 
   # Exclude arm64 for simulators
   post_install do |installer|

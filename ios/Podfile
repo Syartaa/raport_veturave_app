@@ -3,17 +3,17 @@ platform :ios, '13.0'
 target 'Runner' do
   use_modular_headers!
 
-  # Firebase dependencies
-  pod 'Firebase/Core'
-  pod 'Firebase/Firestore'
-  
-  # Pin gRPC-Core to a stable version
-  pod 'gRPC-Core', '~> 1.28.2'  # Or another known stable version
+  # Firebase dependencies with pinned versions
+  pod 'Firebase/Core', '~> 10.0.0'   # Replace with latest stable version
+  pod 'Firebase/Firestore', '~> 10.0.0'
+
+  # Pin gRPC-Core to a stable version (consider using a newer stable version)
+  pod 'gRPC-Core', '~> 1.30.0'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        # Exclude arm64 only for simulators (for M1 Macs)
+        # Exclude arm64 only for simulators (important for M1 Macs)
         config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
       end
     end

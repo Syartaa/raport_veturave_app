@@ -1,17 +1,17 @@
 platform :ios, '13.0'
 
 target 'Runner' do
-  use_modular_headers!
+  use_modular_headers!  # Better compatibility with some libraries
 
   # Firebase dependencies
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
+  pod 'gRPC-Core', '~> 1.28.2'  # Pin to a known working version
 
-  # Exclude arm64 for both simulators and devices
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-       #config.build_settings['EXCLUDED_ARCHS'] = 'arm64'
+        # Exclude arm64 only for simulators
         config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
       end
     end

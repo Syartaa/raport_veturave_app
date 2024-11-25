@@ -71,12 +71,8 @@ class LoginScreen extends ConsumerWidget {
                         }
                         return null;
                       },
-                      onTap: () {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                      },
                     ),
-                    const SizedBox(height: 16.0),
-
+                    const SizedBox(height: 20.0),
                     // Password Field
                     TextFormField(
                       controller: _passwordController,
@@ -99,12 +95,8 @@ class LoginScreen extends ConsumerWidget {
                         }
                         return null;
                       },
-                      onTap: () {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                      },
                     ),
                     const SizedBox(height: 20.0),
-
                     // Login Button
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.7,

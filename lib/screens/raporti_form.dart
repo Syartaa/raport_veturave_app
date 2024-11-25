@@ -23,7 +23,6 @@ class AddRaportiState extends ConsumerState<AddRaporti> {
   final _kmKthimitController = TextEditingController();
   final _komentiController = TextEditingController();
   final _nenshkrimiController = TextEditingController();
-
   @override
   void initState() {
     super.initState();

@@ -1,16 +1,16 @@
-# raporti_veturave_app
+Company Car Report App
 
-A new Flutter project.
 
-## Getting Started
+ Is a Flutter mobile application designed to generate and manage reports related to company car usage. This app allows employees to log their usage of company vehicles, and managers can generate detailed reports based on employee activity. The reports can include data such as the duration of use, destination, mileage, and other essential details, helping to keep track of company car assignments and usage for work-related purposes.
 
-This project is a starting point for a Flutter application.
+ Features
+* Employee Report Generation: Employees can input details about their use of company cars, such as start and end times, destinations, mileage, and reasons for use.
 
-A few resources to get you started if this is your first Flutter project:
+* User-Friendly Interface: Simple, intuitive UI built using Flutter, making it easy for both employees and managers to use the app.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* Data Storage: Reports and employee details can be stored locally on the device for easy access even when offline.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Tech Stack
+Frontend: Flutter (Dart)
+State Management:  Riverpod 
+Database: Firebase
